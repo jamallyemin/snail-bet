@@ -1,2 +1,2 @@
-# snail-bet
-A terminal-based snail racing game built with Python featuring a betting system and persistent JSON storage.
+# Snail Market Race
+Terminal-based betting game. Run with: python3 snails.py
