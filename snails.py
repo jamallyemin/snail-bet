@@ -4,19 +4,17 @@ import time
 import json
 from colorama import Fore, Style, init
 
-# json yaratma - toxunma bura
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(BASE_DIR, 'balance.json')
 
 def loadbal():
-    # fayl yoxdusa 1000 coin ver
     if not os.path.exists(DATA_FILE):
         return 1000
     try:
         with open(DATA_FILE, 'r') as f:
             return json.load(f)
     except Exception:
-        return 1000 # nese xarab olsa yene 1000 ver
+        return 1000 
     
 def savebal(amount):
     with open(DATA_FILE, 'w') as f:
@@ -24,7 +22,6 @@ def savebal(amount):
 
 init(autoreset= True)
 currentbal = loadbal()
-# random suretli ilbizler listi
 snails = {
     "Turbo": {"icon": "@$", "pos": 0, "speed": round(random.uniform(0.8, 1.3), 2), "color": Fore.CYAN},
     "Slime": {"icon": "@~", "pos": 0, "speed": round(random.uniform(0.8, 1.3), 2), "color": Fore.GREEN},
@@ -47,12 +44,10 @@ def drawtrack(bal, betname="none"):
         print(f"{data['color']}{name:8} | {space}{data['icon']}{' ' * (finishline - data ['pos'])}{Fore.WHITE}🏁{betmarker}")
 
     print(Fore.WHITE + "-" * (finishline + 15)) 
-    # son 3 event
     for log in logs[-3:]:
         print(log)
 
 drawtrack(currentbal)
-# izleyici ya da kredit hissesi
 if currentbal <= 0:
     print(Fore.RED + "\n Insufficient funds!")
     print(Fore.WHITE + "1. Borrow 500 coins from the Snail Bank")
@@ -114,7 +109,7 @@ if betamount > currentbal:
     betamount = 0
     betname = "none"
 
-temp_var = currentbal # daha sonra list ucun islet
+temp_var = currentbal
 
 print(Fore.YELLOW + f"\nRace is starting.. Betting {betamount} on {betname}...")
 time.sleep(1.5)
@@ -132,7 +127,7 @@ while raceon:
             movemltp = 0
             msg = f"{Fore.RED}! {name} got stuck in mud"
             logs.append(msg)
-            if len(logs) > 5: # son 5 event
+            if len(logs) > 5: # last 5 event
                 logs.pop(0)
         elif event < 0.04:
             movemltp = 6
